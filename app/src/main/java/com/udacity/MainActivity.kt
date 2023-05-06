@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var loadingButton: LoadingButton
     private var downloadID: Long = 0
     private var url: String = ""
 
@@ -33,22 +35,54 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        loading_button.setOnClickListener {
+        loadingButton = findViewById(R.id.loading_button)
+        loadingButton.buttonState = ButtonState.Completed
+        loadingButton.setOnClickListener {
             download(url)
         }
     }
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+            val cursor =
+                downloadManager.query(id?.let { DownloadManager.Query().setFilterById(it) })
+
+            if (cursor.moveToFirst()) {
+                val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+
+                if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                    loadingButton.buttonState = ButtonState.Completed
+                    context?.let {
+//                        NotificationHelper
+//                            .sendNotification(it, downloadFileName, Constants.SUCCESS)
+                    }
+                } else {
+                    loadingButton.buttonState = ButtonState.Completed
+                    context?.let {
+//                        NotificationHelper
+//                            .sendNotification(it, downloadFileName, Constants.FAILED)
+                    }
+                }
+
+            }
         }
     }
 
     private fun download(url: String) {
+        if (url.isEmpty()) {
+            Toast.makeText(this, getString(R.string.no_selection_warning), Toast.LENGTH_LONG).show()
+            return
+        }
+
+        loadingButton.buttonState = ButtonState.Clicked
         val request =
             DownloadManager.Request(Uri.parse(url))
                 .setTitle(getString(R.string.app_name))
                 .setDescription(getString(R.string.app_description))
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
@@ -56,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+        loadingButton.buttonState = ButtonState.Loading
     }
 
     fun onRadioButtonClicked(view: View) {
@@ -92,4 +127,8 @@ class MainActivity : AppCompatActivity() {
         private const val CHANNEL_ID = "channelId"
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
 }
