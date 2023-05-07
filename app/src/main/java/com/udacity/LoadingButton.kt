@@ -47,7 +47,7 @@ class LoadingButton @JvmOverloads constructor(
             ButtonState.Completed -> {
                 setButtonText("Download")
                 valueAnimator.cancel()
-                resetProgress()
+                progress = 0f
                 enableButton()
             }
 
@@ -148,9 +148,5 @@ class LoadingButton @JvmOverloads constructor(
         buttonText = text
         invalidate()
         requestLayout()
-    }
-
-    private fun resetProgress() {
-        progress = 0f
     }
 }

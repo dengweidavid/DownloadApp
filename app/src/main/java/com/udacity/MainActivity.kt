@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         loadingButton.buttonState = ButtonState.Completed
                         context?.let {
-                            notificationManager.sendNotification(it, downloadFileName, "Failed")
+                            notificationManager.sendNotification(it, downloadFileName, "Fail")
                         }
                     }
 

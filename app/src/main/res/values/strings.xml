@@ -20,4 +20,10 @@
     <string name="load_app_text">LoadApp - Current repository by Udacity</string>
     <string name="retrofit_text">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc.</string>
     <string name="cloud_download_image">Cloud with downward pointed arrow in the center</string>
+
+    <string name="file_name_title">File name:</string>
+    <string name="status_title">Status:</string>
+    <string name="file_name">Glide - Image Loading Library by BumpTech</string>
+    <string name="status">Success</string>
+    <string name="ok">OK</string>
 </resources>

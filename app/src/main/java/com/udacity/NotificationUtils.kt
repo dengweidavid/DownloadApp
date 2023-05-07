@@ -30,3 +30,7 @@ fun NotificationManager.sendNotification(applicationContext: Context, messageBod
 
     notify(NOTIFICATION_ID, notificationBuilder.build())
 }
+
+fun NotificationManager.cancelNotifications() {
+    cancelAll()
+}
