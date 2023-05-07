@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
@@ -25,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
 
         val fileNameTextView: TextView = findViewById(R.id.file_name)
         fileNameTextView.text = intent.getStringExtra("fileName")
+        fileNameTextView.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimaryDark, null))
 
         val statusTextView: TextView = findViewById(R.id.status_text)
         statusTextView.text = intent.getStringExtra("status")
