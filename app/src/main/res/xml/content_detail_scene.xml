@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint android:id="@+id/status_text"
+        <Constraint android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/status_title"
-            app:layout_constraintBottom_toBottomOf="@+id/status_title" />
+            app:layout_constraintStart_toEndOf="@+id/status_label"
+            app:layout_constraintBottom_toBottomOf="@+id/status_label" />
         <Constraint android:id="@+id/ok_button"
             android:layout_marginEnd="16dp"
             android:layout_height="wrap_content"
@@ -15,19 +15,35 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/status_text"
+            app:layout_constraintTop_toBottomOf="@+id/status"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintVertical_bias="0.109" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/file_name_label"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="96dp"
+            android:id="@+id/status_label" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@id/status_text"
+        <Constraint android:id="@id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/status_title"
+            app:layout_constraintBottom_toBottomOf="@+id/status_label"
             app:layout_constraintStart_toStartOf="@+id/file_name"/>
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/file_name_label"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="96dp"
+            android:id="@+id/status_label" />
     </ConstraintSet>
 
     <Transition
@@ -37,7 +53,7 @@
         app:autoTransition="animateToEnd">
 
         <OnClick
-            app:targetId="@id/status_text"
+            app:targetId="@id/status"
             app:clickAction="toggle" />
     </Transition>
 

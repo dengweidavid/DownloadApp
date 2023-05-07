@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
         fileNameTextView.text = intent.getStringExtra("fileName")
         fileNameTextView.setTextColor(ResourcesCompat.getColor(resources, R.color.colorPrimaryDark, null))
 
-        val statusTextView: TextView = findViewById(R.id.status_text)
+        val statusTextView: TextView = findViewById(R.id.status)
         statusTextView.text = intent.getStringExtra("status")
         statusTextView.setTextColor(
             if (intent.getStringExtra("status") == "Success") Color.GREEN else Color.RED)
