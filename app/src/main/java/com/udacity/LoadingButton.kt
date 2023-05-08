@@ -36,7 +36,7 @@ class LoadingButton @JvmOverloads constructor(
                         progress = animatedValue as Float
                         invalidate()
                     }
-                    repeatMode = ValueAnimator.REVERSE
+                    repeatMode = ValueAnimator.RESTART
                     repeatCount = ValueAnimator.INFINITE
                     duration = 6000
                     start()
@@ -72,6 +72,9 @@ class LoadingButton @JvmOverloads constructor(
                     R.styleable.LoadingButton_textColor,
                     ContextCompat.getColor(context, R.color.colorPrimary)
                 )
+
+                progress = getFloat(
+                    R.styleable.LoadingButton_progress, 0f)
             } finally {
                 recycle()
             }

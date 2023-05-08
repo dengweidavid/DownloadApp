@@ -3,5 +3,6 @@
     <declare-styleable name="LoadingButton">
         <attr name="bgColor" format="integer" />
         <attr name="textColor" format="integer" />
+        <attr name="progress" format="float" />
     </declare-styleable>
 </resources>
